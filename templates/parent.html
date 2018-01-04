@@ -1,86 +1,139 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <link rel="shortcut icon" href="/static/startup/flat-ui/images/favicon.ico">
-        
-        <link rel="stylesheet" href="/static/startup/flat-ui/bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="/static/startup/flat-ui/css/flat-ui.css">
-        <!-- Using only with Flat-UI (free)-->
-        <link rel="stylesheet" href="/static/startup/common-files/css/icon-font.css">
-        <!-- end -->
-        <link rel="stylesheet" href="/static/startup/common-files/css/animations.css">
-        <link rel="stylesheet" href="/static/static/css/style.css">
-        
-        <title></title>
-    </head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <body>
-        <div class="page-wrapper"><header class="header-3">
-    <div class="container">
-        <div class="row">
-            <nav class="navbar col-sm-12" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle"></button>
-                    <a class="brand" href="#"><img src="/static/startup/common-files/icons/Infinity-Loop@2x.png" width="50" height="50" alt=""> Demo</a>
-                </div>
-                <div class="collapse navbar-collapse pull-right">
-                    <ul class="nav pull-left">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'document' %}">Resources</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="header-background"></div>
-</header>
-<section class="header-3-sub">
-    <div class="background">&nbsp;</div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h3>Twenty five awesome samples</h3>
-                <p>These Samples will guide you through and show how to use the blocks and give you the feeling on how to play around using the components in the website building process.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <title>Bootstrap 3, from LayoutIt!</title>
 
-              {% block content %}
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
 
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
 
-               {%endblock %}
+  </head>
+  <body>
 
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-inverse" role="navigation">
+				<div class="navbar-header">
 
-            <footer class="footer-12">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#">Brand</a>
+				</div>
 
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="#">Link</a>
+						</li>
+						<li>
+							<a href="#">Link</a>
+						</li>
 
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">Link</a>
+						</li>
+					</ul>
+				</div>
 
-    <div class="container">
-        Made with <span class="fui-heart"> </span> in New York
-    </div>
-</footer>            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="/static/startup/common-files/js/jquery-1.10.2.min.js"></script>
-            <script src="/static/startup/common-files/js/jquery.bxslider.min.js"></script>
-            <script src="/static/startup/common-files/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-            <script src="/static/startup/common-files/js/jquery.sharrre.min.js"></script>
-            <script src="/static/startup/flat-ui/js/bootstrap.min.js"></script>
-            <script src="/static/startup/common-files/js/masonry.pkgd.min.js"></script>
-            <script src="/static/startup/common-files/js/modernizr.custom.js"></script>
-            <script src="/static/startup/common-files/js/page-transitions.js"></script>
-            <script src="/static/startup/common-files/js/easing.min.js"></script>
-            <script src="/static/startup/common-files/js/jquery.svg.js"></script>
-            <script src="/static/startup/common-files/js/jquery.svganim.js"></script>
-            <script src="/static/startup/common-files/js/jquery.backgroundvideo.min.js"></script>
-            <script src="/static/startup/common-files/js/froogaloop.min.js"></script>
-            <script src="/static/startup/common-files/js/startup-kit.js"></script>
-        </div>
-    </body>
+			</nav>
+			<h3>
+				h3. Lorem ipsum dolor sit amet.
+			</h3>
+			<div class="jumbotron">
+				<h2>
+					Hello, world!
+				</h2>
+				<p>
+					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+				</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+				</p>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h3 class="text-primary">
+						h3. Lorem ipsum dolor sit amet.
+					</h3>
+					<form role="form">
+						<div class="form-group">
+
+							<label for="exampleInputEmail1">
+								Email address
+							</label>
+							<input type="email" class="form-control" id="exampleInputEmail1">
+						</div>
+						<div class="form-group">
+
+							<label for="exampleInputPassword1">
+								Password
+							</label>
+							<input type="password" class="form-control" id="exampleInputPassword1">
+						</div>
+						<div class="form-group">
+
+							<label for="exampleInputFile">
+								File input
+							</label>
+							<input type="file" id="exampleInputFile">
+							<p class="help-block">
+								Example block-level help text here.
+							</p>
+						</div>
+						<div class="checkbox">
+
+							<label>
+								<input type="checkbox"> Check me out
+							</label>
+						</div>
+						<button type="submit" class="btn btn-default">
+							Submit
+						</button>
+					</form>
+					<div class="row">
+						<div class="col-md-6">
+
+							<button type="button" class="btn btn-block btn-primary">
+								Default
+							</button>
+						</div>
+						<div class="col-md-6">
+
+							<button type="button" class="btn btn-block btn-primary">
+								Default
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h3 class="text-center text-success">
+						h3. Lorem ipsum dolor sit amet.
+					</h3>
+				</div>
+			</div>
+			<h3>
+				h3. Lorem ipsum dolor sit amet.
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div>
+</div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/scripts.js"></script>
+  </body>
 </html>
