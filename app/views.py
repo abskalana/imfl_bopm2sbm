@@ -10,6 +10,6 @@ def home(request):
 def documentation(request):
     return render(request, 'document.html')
 
-def apropos(request):
+def about(request):
     return render(request, 'about.html')
 

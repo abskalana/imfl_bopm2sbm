@@ -32,9 +32,8 @@
                 </div>
                 <div class="collapse navbar-collapse pull-right">
                     <ul class="nav pull-left">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">About </a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'document' %}">Resources</a></li>
                     </ul>
                 </div>
             </nav>
@@ -52,12 +51,17 @@
             </div>
         </div>
     </div>
-</section><footer class="footer-12">
+</section>
 
-                {% block content %}
+              {% block content %}
 
 
-{%endblock %}
+               {%endblock %}
+
+
+            <footer class="footer-12">
+
+
 
     <div class="container">
         Made with <span class="fui-heart"> </span> in New York

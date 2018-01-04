@@ -27,7 +27,7 @@ SECRET_KEY = '4c-k2%^rr&(19&-#e-*h!3gbur=**%$-dqe%t=dyr*e6^a-*_i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bopm2sbm.deylook.com','*.deylook.com']
 
 
 # Application definition
