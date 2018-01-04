@@ -15,9 +15,20 @@
     <link href="/static/css/style.css" rel="stylesheet">
 
   </head>
+  <style>
+      .border_1 {
+ border-radius: 2px 2px 2px 2px;
+ -moz-border-radius: 2px 2px 2px 2px;
+ -webkit-border-radius: 2px 2px 2px 2px;
+    padding: 10px;
+ border: 1px solid #000000;
+
+}
+
+  </style>
   <body>
 
-    <div class="container-fluid">
+  <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -36,20 +47,67 @@
 						<li>
 							<a href="#">Link</a>
 						</li>
-
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Action</a>
+								</li>
+								<li>
+									<a href="#">Another action</a>
+								</li>
+								<li>
+									<a href="#">Something else here</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Separated link</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">One more separated link</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" />
+						</div>
+						<button type="submit" class="btn btn-default">
+							Submit
+						</button>
+					</form>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<a href="#">Link</a>
+						</li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Action</a>
+								</li>
+								<li>
+									<a href="#">Another action</a>
+								</li>
+								<li>
+									<a href="#">Something else here</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Separated link</a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
 
 			</nav>
-			<h3>
-				h3. Lorem ipsum dolor sit amet.
-			</h3>
-			<div class="jumbotron">
+			<div class="jumbotron" style="margin: 5%">
 				<h2>
 					Hello, world!
 				</h2>
@@ -60,77 +118,94 @@
 					<a class="btn btn-primary btn-large" href="#">Learn more</a>
 				</p>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<h3 class="text-primary">
-						h3. Lorem ipsum dolor sit amet.
+			<h3 style="margin: 5%">
+				h3. Lorem ipsum dolor sit amet.
+			</h3>
+			<div class="row" style="margin: 5%">
+				<div class="col-md-3 border_1" style="height: 600px">
+					<h3>
+						Parametre.
 					</h3>
+                    <br><br>
 					<form role="form">
 						<div class="form-group">
 
 							<label for="exampleInputEmail1">
-								Email address
+								Stock price
 							</label>
-							<input type="email" class="form-control" id="exampleInputEmail1">
+							<input type="email" class="form-control" id="exampleInputEmail1" />
 						</div>
 						<div class="form-group">
 
 							<label for="exampleInputPassword1">
-								Password
+								Strike
 							</label>
-							<input type="password" class="form-control" id="exampleInputPassword1">
+							<input type="password" class="form-control" id="exampleInputPassword1" />
 						</div>
 						<div class="form-group">
-
-							<label for="exampleInputFile">
-								File input
+							<label for="exampleInputPassword1">
+								Volatility
 							</label>
-							<input type="file" id="exampleInputFile">
-							<p class="help-block">
-								Example block-level help text here.
-							</p>
+							<input type="password" class="form-control" id="exampleInputPassword1" />
 						</div>
-						<div class="checkbox">
 
-							<label>
-								<input type="checkbox"> Check me out
+                        <div class="form-group">
+							<label for="exampleInputPassword1">
+								Rate
 							</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" />
 						</div>
-						<button type="submit" class="btn btn-default">
-							Submit
-						</button>
-					</form>
-					<div class="row">
-						<div class="col-md-6">
 
-							<button type="button" class="btn btn-block btn-primary">
-								Default
-							</button>
+                        <div class="form-group">
+							<label for="exampleInputPassword1">
+								Maturite
+							</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" />
 						</div>
-						<div class="col-md-6">
 
-							<button type="button" class="btn btn-block btn-primary">
-								Default
-							</button>
+						<div class="form-group">
+							<label for="exampleInputPassword1">
+								Subdivision
+							</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" />
 						</div>
-					</div>
+						<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-6">
+
+					<button type="button" class="btn btn-success btn-block">
+						Default
+					</button>
 				</div>
 				<div class="col-md-6">
-					<h3 class="text-center text-success">
+
+					<button type="button" class="btn btn-block btn-success">
+						Default
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+					</form>
+				</div>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-8 border_1" style="height: 600px">
+					<h3>
 						h3. Lorem ipsum dolor sit amet.
 					</h3>
 				</div>
 			</div>
-			<h3>
+			<h3 style="margin: 5%">
 				h3. Lorem ipsum dolor sit amet.
 			</h3>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-		</div>
-	</div>
 </div>
+
 
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
