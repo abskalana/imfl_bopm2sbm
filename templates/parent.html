@@ -20,7 +20,6 @@
  border-radius: 2px 2px 2px 2px;
  -moz-border-radius: 2px 2px 2px 2px;
  -webkit-border-radius: 2px 2px 2px 2px;
-    padding: 10px;
  border: 1px solid #000000;
 
 }
@@ -36,7 +35,7 @@
 
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-					</button> <a class="navbar-brand" href="#">Demo</a>
+					</button> <a class="navbar-brand" href="#">Bopm2Bsm</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -45,11 +44,11 @@
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="#">About</a>
-						</li>
                         <li>
 							<a href="#">Resources</a>
+						</li>
+                        <li>
+							<a href="#">About</a>
 						</li>
 					</ul>
 				</div>
@@ -68,7 +67,7 @@ Le travail demandé consiste à simuler la convergence du modèle BOPM vers le m
 se basant sur les éléments du cours, du logiciel MATLAB et en se servant des données suivantes	</p>
 			</div>
 			<h3 style="margin: 5%">
-				h3. Lorem ipsum dolor sit amet.
+				Simulation de la convergence
 			</h3>
 			<div class="row" style="margin: 5%">
 				<div class="col-md-3 border_1" style="height: 600px">
@@ -76,77 +75,70 @@ se basant sur les éléments du cours, du logiciel MATLAB et en se servant des d
 						Parametre.
 					</h3>
                     <hr>
-					<form role="form">
+					<form role="form" id="computeForm" method="get" action="/" >
 						<div class="form-group">
 
 							<label for="exampleInputEmail1">
-								Stock price
+								Current stock price
 							</label>
-							<input type="number" class="form-control" id="exampleInputEmail1" value="50" />
+							<input type="number" class="form-control" name="stock" value="50" />
 						</div>
 						<div class="form-group">
 
 							<label for="exampleInputPassword1">
-								Strike
+								Strike price
 							</label>
-							<input type="number" class="form-control" id="exampleInputPassword1" value="50.2"/>
+							<input type="number" class="form-control" name="strike" value="50.2"/>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">
-								Volatility (en pourcentage)
+								Volatility
 							</label>
-							<input value="50" class="form-control" id="exampleInputPassword1" type="number" />
+							<input value="50" class="form-control" name="vol" type="number" />
 						</div>
 
                         <div class="form-group">
 							<label for="exampleInputPassword1">
-								Rate (en pourcentage)
+								Annual expected return rate ()
 							</label>
-							<input type="number" class="form-control" id="exampleInputPassword1" type="number" value="5"/>
+							<input type="number" class="form-control" name="rate" type="number" value="5"/>
 						</div>
 
                         <div class="form-group">
 							<label for="exampleInputPassword1">
-								Maturite (en nombre de mois)
+								Maturity (nombre of months)
 							</label>
-							<input type="number" class="form-control" id="exampleInputPassword1" value="6" />
+							<input type="number" class="form-control" name="maturity" value="6" />
 						</div>
 
 						<div class="form-group">
 							<label for="exampleInputPassword1">
-								Subdivision (Step)
+								Step
 							</label>
-							<input type="number" class="form-control" id="exampleInputPassword1"  value="0.01"/>
+							<input  class="form-control" name="step"  value="1"/>
 						</div>
 						<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-6">
 
-					<button type="button" class="btn btn-success btn-block">
-						Submit
-					</button>
-				</div>
-				<div class="col-md-6">
-
-					<button type="button" class="btn btn-block btn-success">
-						Reset
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <input type="submit" class="btn btn-success btn-block" style="width: 100%"> </input>
 </div>
 					</form>
 				</div>
 				<div class="col-md-1">
 				</div>
-				<div class="col-md-8 border_1" style="height: 600px">
+				<div class="col-md-8 border_1" style="height: 600px;padding: 10px">
 					<h3>
 						The graph.
 					</h3>
                     <hr>
+                    <div id = "id_info alert alert-success" class="row" style="height: 10%" >
+                   <div class="col-md-4 text-center" id ="u">Valeur de u : {{ bopmdata.u }}</div>
+                        <div class="col-md-4 text-center"></div>
+                        <div class="col-md-4 text-center" id ="d" >Valeur de d {{ bopmdata.d }}</div>
+                        </div>
+
+
+               <div id="chart_div" class="row" style="background-color: blue; height: 90%"></div>
+        </div>
 				</div>
 			</div>
 		</div>
@@ -157,5 +149,46 @@ se basant sur les éléments du cours, du logiciel MATLAB et en se servant des d
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/scripts.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+  function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+
+      data.addRows([
+        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
+        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
+        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+        [66, 70], [67, 72], [68, 75], [69, 80]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+    </script>
   </body>
 </html>
