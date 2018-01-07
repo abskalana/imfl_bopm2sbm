@@ -25,4 +25,5 @@ def parse(request):
     maturity = float(request.GET.get('maturity',1))
     volatility = float(request.GET.get('volatility',0.3))
     step = int(request.GET.get('step',50))
-    return BopmData(stock_price, strick_price, rate, volatility,maturity, step)
+    fixed = bool(request.GET.get('fixed', False))
+    return BopmData(stock_price, strick_price, rate, volatility,maturity, step,fixed)

@@ -26,7 +26,7 @@ class OptionStep():
 
 
 class BopmData():
-    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, put = False):
+    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, put = False, fixed = False):
         self.stock = stock_price
         self.strike_price = strike_price
         self.rate = rate
@@ -36,7 +36,10 @@ class BopmData():
         self.optionsteps = []
         self.bsm = black_schole(stock_price,strike_price,rate,volatility,maturity,put)
         for i in range(1,step):
-            bopm = binomial(stock_price,strike_price,rate,volatility,maturity,i,put)
+            if fixed :
+                bopm = binomialFixed(stock_price,strike_price,rate,volatility,maturity,i,put)
+            else:
+                bopm = binomial(stock_price, strike_price, rate, volatility, maturity, i, put)
             self.optionsteps.append(OptionStep(i,bopm,self.bsm))
             self.bopm = bopm
 
@@ -56,6 +59,33 @@ def binomial(stock_price,strike_price,rate,volatility,maturity,step,put):
     u = math.exp(volatility * math.sqrt(dt))
     d = math.exp(-volatility * math.sqrt(dt))
     a = exp(rate*dt)
+    p = (a - d) / (u - d)
+
+    St = [0] * (step + 1)
+    C  = [0] * (step + 1)
+
+    St[0] = stock_price * d ** step
+
+    for j in range(1, step + 1):
+        St[j] = St[j - 1] * u / d
+
+    for j in range(1, step + 1):
+        if put :
+            C[j] = max(strike_price - St[j], 0)
+        else :
+            C[j] = max(St[j] - strike_price, 0)
+
+    for i in range(step, 0, -1):
+        for j in range(0, i):
+            C[j] = (1/a) * (p * C[j + 1] + (1-p) * C[j])
+
+    return C[0]
+
+def binomialFixed(stock_price,strike_price,rate,volatility,maturity,step,put):
+    dt = maturity / step
+    u = math.exp(volatility * math.sqrt(dt) + (1/step)*math.log(strike_price/stock_price))
+    d = math.exp(-volatility * math.sqrt(dt) + (1/step)*math.log(strike_price/stock_price))
+    a = exp(rate*dt/step)
     p = (a - d) / (u - d)
 
     St = [0] * (step + 1)
