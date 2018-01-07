@@ -1,12 +1,6 @@
 import json
-
-from django.core.serializers.json import DjangoJSONEncoder
-from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response
-from math import exp,sqrt
+from math import exp
 import math
-
-
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 
@@ -18,21 +12,21 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 class OptionStep():
-    def __init__(self, option, step):
-        self.option = option
+    def __init__(self, step,bopm,bsm):
         self.step = step
+        self.bopm = bopm
+        self.bsm = bsm
 
     def as_json(self):
         return dict(
-            option=self.option,
-            step=self.step)
+            step=self.step,
+            bopm = self.bopm,
+            bsm = self.bsm
+        )
 
 
 class BopmData():
-    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step):
-        dt = maturity/step
-        self.u = exp(volatility*sqrt(dt))
-        self.d = exp(-volatility * sqrt(dt))
+    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, put = False):
         self.stock = stock_price
         self.strike_price = strike_price
         self.rate = rate
@@ -40,14 +34,15 @@ class BopmData():
         self.maturity = maturity
         self.step = step
         self.optionsteps = []
+        self.bsm = black_schole(stock_price,strike_price,rate,volatility,maturity,put)
         for i in range(1,step):
-            price = calculate_step(stock_price,strike_price,rate,volatility,maturity,i,False)
-            self.optionsteps.append(OptionStep(price,i))
+            bopm = binomial(stock_price,strike_price,rate,volatility,maturity,i,put)
+            self.optionsteps.append(OptionStep(i,bopm,self.bsm))
+            self.bopm = bopm
+
 
     def as_json(self):
         return dict(
-            u = self.u,
-            d = self.d,
             stock = self.stock,
             strike = self.strike_price,
             volatility = self.volatility,
@@ -56,7 +51,7 @@ class BopmData():
             step = self.step,
             optionsteps=[ob.as_json() for ob in self.optionsteps])
 
-def calculate_step(stock_price,strike_price,rate,volatility,maturity,step,put):
+def binomial(stock_price,strike_price,rate,volatility,maturity,step,put):
     dt = maturity / step
     u = math.exp(volatility * math.sqrt(dt))
     d = math.exp(-volatility * math.sqrt(dt))
@@ -82,3 +77,14 @@ def calculate_step(stock_price,strike_price,rate,volatility,maturity,step,put):
             C[j] = (1/a) * (p * C[j + 1] + (1-p) * C[j])
 
     return C[0]
+
+def black_schole(stock_price,strike_price,rate,volatility,maturity,put):
+    d1 = (math.log(stock_price/strike_price) + (rate +volatility*volatility/2)*maturity)/ (volatility* math.sqrt(maturity))
+    d2 = d1 - volatility*math.sqrt(maturity)
+    if put :
+        return strike_price * phi(-d2) - stock_price * phi(-d1)* math.exp(-rate * maturity)
+    return stock_price * phi(d1) - strike_price * phi(d2) * math.exp(-rate * maturity)
+
+
+def phi(x):
+    return (1.0 + math.erf(x / math.sqrt(2.0))) / 2.0
