@@ -1,15 +1,12 @@
 from django.shortcuts import render
 from  app.bopm2bsmengine import BopmData, JSONResponse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def home(request):
-    stock_price = float(request.GET.get('s', 50))
-    strick_price = float(request.GET.get('k', 50))
-    rate = float(request.GET.get('r', 5))
-    maturity = float(request.GET.get('t', 1))
-    volatility = float(request.GET.get('v', 0.3))
-    step = float(request.GET.get('step', 2))
-    bopm = BopmData(stock_price, strick_price, rate, maturity, volatility, step)
-    return render(request, 'home.html', {"bopmdata": bopm})
+    bopm = parse(request)
+    bopmdata_json = json.dumps(bopm.as_json(), cls=DjangoJSONEncoder)
+    return render(request, 'home.html', {"bopmdata": bopm,"bopmdata_json":bopmdata_json})
 
 def documentation(request):
     return render(request, 'document.html')
@@ -19,11 +16,13 @@ def about(request):
 
 
 def compute(request):
-    stock_price = float(request.GET.get('s', -1))
-    strick_price = float(request.GET.get('k', -1))
-    rate = float(request.GET.get('r', -1))
-    maturity = float(request.GET.get('t', -1))
-    volatility = float(request.GET.get('v', -1))
-    step = float(request.GET.get('step', 0))
-    bopm = BopmData(stock_price, strick_price, rate, maturity, volatility, step)
-    return JSONResponse(bopm.as_json())
+    return JSONResponse(parse(request).as_json())
+
+def parse(request):
+    stock_price = float(request.GET.get('stock',50))
+    strick_price = float(request.GET.get('strike',50))
+    rate = float(request.GET.get('rate',0.1))
+    maturity = float(request.GET.get('maturity',1))
+    volatility = float(request.GET.get('volatility',0.3))
+    step = int(request.GET.get('step',50))
+    return BopmData(stock_price, strick_price, rate, maturity, volatility, step)
