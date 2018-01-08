@@ -25,7 +25,7 @@ class BopmData():
         self.step = step
         self.put = put
         self.fixed = fixed
-        self.start = 100
+        self.start = 1
         self.optionsteps = []
 
     def as_json(self):
@@ -45,7 +45,7 @@ class BopmData():
         rate = self.rate / 100.0
         volatility = self.volatility / 100.0
         self.bsm = black_schole(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.put)
-        for i in range(self.start, self.step):
+        for i in range(self.start, self.step+1):
             if self.fixed:
                 bopm = binomialFixed(self.stock_price, self.strike_price, rate, volatility, self.maturity, i, self.put)
             else:
