@@ -1,15 +1,5 @@
-import json
 from math import exp
 import math
-from django.http import HttpResponse
-from rest_framework.renderers import JSONRenderer
-
-class JSONResponse(HttpResponse):
-
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
 
 class OptionStep():
     def __init__(self, step,bopm,bsm):
@@ -27,32 +17,41 @@ class OptionStep():
 
 class BopmData():
     def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, put = False, fixed = False):
-        self.stock = stock_price
+        self.stock_price = stock_price
         self.strike_price = strike_price
         self.rate = rate
         self.volatility = volatility
         self.maturity = maturity
         self.step = step
+        self.put = put
+        self.fixed = fixed
+        self.start = 100
         self.optionsteps = []
-        self.bsm = black_schole(stock_price,strike_price,rate,volatility,maturity,put)
-        for i in range(1,step):
-            if fixed :
-                bopm = binomialFixed(stock_price,strike_price,rate,volatility,maturity,i,put)
-            else:
-                bopm = binomial(stock_price, strike_price, rate, volatility, maturity, i, put)
-            self.optionsteps.append(OptionStep(i,bopm,self.bsm))
-            self.bopm = bopm
-
 
     def as_json(self):
         return dict(
-            stock = self.stock,
+            stock_price = self.stock_price,
             strike = self.strike_price,
+            rate=self.rate,
             volatility = self.volatility,
-            rate= self.rate,
-            maturity = self.maturity,
-            step = self.step,
+            maturity=self.maturity,
+            step=self.step,
+            put = self.put,
+            start = self.start,
+            fixed = self.fixed,
             optionsteps=[ob.as_json() for ob in self.optionsteps])
+
+    def compute(self):
+        rate = self.rate / 100.0
+        volatility = self.volatility / 100.0
+        self.bsm = black_schole(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.put)
+        for i in range(self.start, self.step):
+            if self.fixed:
+                bopm = binomialFixed(self.stock_price, self.strike_price, rate, volatility, self.maturity, i, self.put)
+            else:
+                bopm = binomial(self.stock_price, self.strike_price, rate, volatility, self.maturity, i, self.put)
+            self.optionsteps.append(OptionStep(i, bopm, self.bsm))
+        self.bopm = bopm
 
 def binomial(stock_price,strike_price,rate,volatility,maturity,step,put):
     dt = maturity / step

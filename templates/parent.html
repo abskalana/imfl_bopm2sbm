@@ -66,7 +66,7 @@ table {
 				</div>
 
 			</nav>
-			<div class="jumbotron" style="margin: 2%">
+			<div class="jumbotron" style="margin: 1%">
 				<h2>
 					Bopm2Bsm
 				</h2>
@@ -76,11 +76,11 @@ table {
                     On se propose de montrer la convergence du modèle en temps discret Binomial Options Pricing
 Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	</p>
 			</div>
-			<h3 style="margin: 2%">
+			<h3 style="margin: 1%">
 				Simulink the convergency  of discret binomial pricing to Black scholes and merton model.
 			</h3>
-			<div class="row" style="margin: 2%">
-				<div class="col-md-2 border_1" style="height: 650px; padding: 2%" >
+			<div class="row" style="margin: 1%">
+				<div class="col-md-2 border_1" style="height: 650px; padding: 2%;margin-right: 10px" >
 					<h3>
 						Parametre.
 					</h3>
@@ -91,7 +91,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 								Current stock price
 							</label>
 						<div class="input-group">
-							<input type="number" class="form-control" name="stock" value="{{ bopmdata.stock }}" step="0.01" />
+							<input type="number" class="form-control" name="stock" value="{{ bopmdata.stock_price }}" step="0.01" />
 						   <span class="input-group-addon">$</span>
                         </div>
                             </div>
@@ -110,7 +110,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 								Volatility
 							</label>
                              <div class="input-group">
-							<input  class="form-control" name="volatility" type="number" value="{{ bopmdata.volatility }}"  step="0.01"/>
+							<input  class="form-control" name="volatility"  value="{{ bopmdata.volatility }}"/>
 						    <span class="input-group-addon">%</span>
                         </div>
                             </div>
@@ -120,7 +120,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 								Expected return rate
 							</label>
                              <div class="input-group">
-							<input type="number" class="form-control" name="rate" type="number"  value="{{ bopmdata.rate }}" step="0.01"/>
+							<input type="number" class="form-control" name="rate"  value="{{ bopmdata.rate }}"/>
 						<span class="input-group-addon">%</span>
                         </div>
                            </div>
@@ -146,24 +146,27 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 </div>
 					</form>
 				</div>
-				<div class="col-md-8 border_1" style="height: 650px;padding: 10px">
+				<div class="col-md-7 border_1" style="height: 650px;padding: 10px;margin-right: 30px; margin-left: 30px">
 
                <div id="chart_div" class="row" style="height: 97%;padding: 2%"></div>
 
         </div>
 
                 <div class="col-md-2 border_1" style="height: 650px;padding: 10px">
-			<table class="table table-bordered table-hover table-condensed" style="width: 100%;overflow: scroll;height: 100%">
+
+                <div  style="width: 100%;height: 35%"></div>
+                <hr>
+			<table class="table table-bordered table-hover table-condensed" style="width: 100%;overflow: scroll;height: 60%">
 				<thead>
 					<tr>
 						<th>
 							Periods
 						</th>
 						<th>
-							BOPM
+							BOPM($)
 						</th>
 						<th>
-							BSM
+							BSM($)
 						</th>
 					</tr>
 				</thead>
