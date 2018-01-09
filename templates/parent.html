@@ -66,13 +66,16 @@ table {
 				</div>
 
 			</nav>
-			<div class="jumbotron" style="margin: 1%">
-				<h3>
-					Simulink the convergency  of discret binomial pricing to Black scholes and merton model.
-				</h3>
+
+        <br><br><br>
+
+			<div class="page-header" style="margin: 1%">
+				<h1>
+					Bopm2Bsm <small> Simulink the convergency of discret binomial pricing to Black scholes and merton model</small>
+				</h1>
 				<p>
                     The purpose of this website is to study the convergency of binomial option pricing model toward Black scholes merton option pricing.
-                   </p>
+                </p>
 			</div>
 			<br><br><br>
 			<div class="row" style="margin: 1%">
@@ -164,13 +167,70 @@ table {
 
                 <div class="col-md-2 border_1" style="height: 650px;padding: 5px">
 
-                <div  style="width: 100%;height: 35%"></div>
+                <div  style="width: 100%;height: 40%">
+                    <h5>Result analyze</h5>
+                  <table class="table table-bordered table-hover table-condensed">
+				<tbody>
+					<tr>
+						<td>
+							BOPM
+						</td>
+						<td>
+							{{ bopmdata.bopm |floatformat:4}}$
+						</td>
+					</tr>
+					<tr>
+						<td>
+							BSM
+						</td>
+						<td>
+							{{ bopmdata.bsm|floatformat:4 }}$
+						</td>
+					</tr>
+
+                    <tr>
+						<td>
+							Diff
+						</td>
+						<td>
+							{{ bopmdata.diff|floatformat:4 }}
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							Delta(BSM)
+						</td>
+						<td>
+							{{ bopmdata.delta |floatformat:4 }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							u
+						</td>
+						<td>
+							{{ bopmdata.u |floatformat:4 }}
+						</td>
+					</tr>
+                <tr>
+						<td>
+							d
+						</td>
+						<td>
+							{{ bopmdata.d |floatformat:4}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                </div>
+                 <h5>Report</h5>
                 <hr>
-			<table class="table table-bordered table-hover table-condensed" style="width: 100%;overflow: scroll;height: 60%">
+			<table class="table table-bordered table-hover table-condensed" style="width: 100%;overflow: scroll;height: 45%">
 				<thead>
 					<tr>
 						<th>
-							Periods
+							Steps
 						</th>
 						<th>
 							BOPM
@@ -232,9 +292,10 @@ table {
 
       }
       var options = {
+          title:'Convergency of Bopm to Bsm',
         hAxis: {
           title: 'Number of period',
-              minValue: 1,
+              minValue: 0,
             maxValue:numRows
         },
         vAxis: {
