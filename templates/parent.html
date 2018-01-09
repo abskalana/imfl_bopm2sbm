@@ -67,25 +67,35 @@ table {
 
 			</nav>
 			<div class="jumbotron" style="margin: 1%">
-				<h2>
-					Bopm2Bsm
-				</h2>
+				<h3>
+					Simulink the convergency  of discret binomial pricing to Black scholes and merton model.
+				</h3>
 				<p>
-
-                    This website intend to show the convergency from B
-                    On se propose de montrer la convergence du modèle en temps discret Binomial Options Pricing
-Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	</p>
+                    The purpose of this website is to study the convergency of binomial option pricing model toward Black scholes merton option pricing.
+                   </p>
 			</div>
-			<h3 style="margin: 1%">
-				Simulink the convergency  of discret binomial pricing to Black scholes and merton model.
-			</h3>
+			<br><br><br>
 			<div class="row" style="margin: 1%">
-				<div class="col-md-2 border_1" style="height: 650px; padding: 2%;margin-right: 10px" >
-					<h3>
-						Parametre.
-					</h3>
+				<div class="col-md-2 border_1" style="height: 650px; padding: 1%;margin-right: 10px" >
+					<h4>
+						European options.
+					</h4>
                     <hr>
 					<form role="form" id="computeForm" method="get" action="/" >
+
+
+                        <div class="row">
+				        <div class="col-md-6">
+                            <input type="radio" name="optype" id="optype" value="0" checked>
+  <label class="form-check-label" for="inlineRadio1">Call</label>
+                            </div>
+                            <div class="col-md-6">
+                                 <input type="radio" name="optype" id="optype" value="1">
+  <label class="form-check-label" for="inlineRadio1">Put </label>
+                            </div>
+                            </div>
+                        <br>
+
                         <div class="form-group">
                         <label for="exampleInputEmail1">
 								Current stock price
@@ -101,7 +111,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 								Strike price
 							</label>
                             <div class="input-group">
-							<input type="number" class="form-control" name="strike" value="50" step="0.01"/>
+							<input type="number" class="form-control" name="strike" value="{{ bopmdata.strike_price }}" step="0.01"/>
                                 <span class="input-group-addon">$</span>
 						</div>
                             </div>
@@ -117,7 +127,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 
                         <div class="form-group">
 							<label for="exampleInputPassword1">
-								Expected return rate
+								Interest rate
 							</label>
                              <div class="input-group">
 							<input type="number" class="form-control" name="rate"  value="{{ bopmdata.rate }}"/>
@@ -152,7 +162,7 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 
         </div>
 
-                <div class="col-md-2 border_1" style="height: 650px;padding: 10px">
+                <div class="col-md-2 border_1" style="height: 650px;padding: 5px">
 
                 <div  style="width: 100%;height: 35%"></div>
                 <hr>
@@ -163,10 +173,10 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 							Periods
 						</th>
 						<th>
-							BOPM($)
+							BOPM
 						</th>
 						<th>
-							BSM($)
+							BSM
 						</th>
 					</tr>
 				</thead>
@@ -179,10 +189,10 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
 							{{ item.step  }}
 						</td>
 						<td>
-							{{ item.bopm|floatformat:4 }}
+							{{ item.bopm|floatformat:4}}$
 						</td>
 						<td>
-							{{ item.bsm|floatformat:4 }}
+							{{ item.bsm|floatformat:4 }}$
 						</td>
 					</tr>
                 {% endfor %}
@@ -200,10 +210,10 @@ Model (BOPM) vers le modèle en temps continu Black, Scholes and Merton (BSM).	<
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/scripts.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-        google.charts.load('current', {packages: ['corechart', 'line']});
-     google.charts.setOnLoadCallback(drawBasic);
+      google.charts.load('current', {packages: ['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawBasic);
 
   function drawBasic() {
 
