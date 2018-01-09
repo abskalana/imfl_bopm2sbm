@@ -88,15 +88,28 @@ table {
 
 
                         <div class="row">
-				        <div class="col-md-6">
-                            <input type="radio" name="optype" id="optype" value="0" checked>
-  <label class="form-check-label" for="inlineRadio1">Call</label>
-                            </div>
+
+                        {% if bopmdata.op_type == 0 %}
                             <div class="col-md-6">
-                                 <input type="radio" name="optype" id="optype" value="1">
-  <label class="form-check-label" for="inlineRadio1">Put </label>
+                             <input type="radio" name="op_type" id="op_type" value="0" checked>
+                             <label class="form-check-label" for="inlineRadio1">Call</label>
                             </div>
+                             <div class="col-md-6">
+                                 <input type="radio" name="op_type" id="op_type" value="1">
+                               <label class="form-check-label" for="inlineRadio1">Put</label>
                             </div>
+
+                        {% else %}
+                            <div class="col-md-6">
+                                <input type="radio" name="op_type" id="op_type" value="0" >
+                             <label class="form-check-label" for="inlineRadio1">Call</label>
+                            </div>
+                             <div class="col-md-6">
+                                 <input type="radio" name="op_type" id="op_type" value="1" checked>
+                               <label class="form-check-label" for="inlineRadio1">Put</label>
+                            </div>
+                        {% endif %}
+</div>
                         <br>
 
                         <div class="form-group">
