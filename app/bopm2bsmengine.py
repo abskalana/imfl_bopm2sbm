@@ -27,6 +27,7 @@ class BopmData():
         self.u = 0
         self.d= 0
         self.diff = 0
+        self.opt_nat = 0
         self.op_type = op_type
         self.optionsteps = []
 
@@ -40,6 +41,7 @@ class BopmData():
             step=self.step,
             u = self.u,
             d = self.d,
+            opt_nat = self.opt_nat,
             diff = self.diff,
             deltat = self.delta,
             op_type = self.op_type,
@@ -50,15 +52,15 @@ class BopmData():
         volatility = self.volatility / 100.0
         self.u = up(volatility,self.maturity,self.step)
         self.d = down(volatility, self.maturity, self.step)
-        self.bsm = black_schole(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.op_type)
-        self.delta = delta_bsm(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.op_type)
+        self.bsm = black_schole(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.op_type,self.opt_nat)
+        self.delta = delta_bsm(self.stock_price, self.strike_price, rate, volatility, self.maturity, self.op_type,self.opt_nat)
         for i in range(1, self.step+1):
-            bopm = binomial(self.stock_price, self.strike_price, rate, volatility, self.maturity, i, self.op_type)
+            bopm = binomial(self.stock_price, self.strike_price, rate, volatility, self.maturity, i, self.op_type,self.opt_nat)
             self.optionsteps.append(OptionStep(i, bopm, self.bsm))
         self.bopm = bopm
         self.diff = math.fabs(bopm - self.bsm)
 
-def binomial(stock_price,strike_price,rate,volatility,maturity,step,op_type):
+def binomial(stock_price,strike_price,rate,volatility,maturity,step,op_type,opt_nat = 0):
     dt = maturity / step
     u = up(volatility,maturity,step)
     d = down(volatility,maturity,step)
@@ -85,14 +87,14 @@ def binomial(stock_price,strike_price,rate,volatility,maturity,step,op_type):
 
     return C[0]
 
-def black_schole(stock_price,strike_price,rate,volatility,maturity,op_type):
+def black_schole(stock_price,strike_price,rate,volatility,maturity,op_type,opt_nat = 0 ):
     d1 = (math.log(stock_price/strike_price) + (rate +volatility*volatility/2)*maturity)/ (volatility* math.sqrt(maturity))
     d2 = d1 - volatility*math.sqrt(maturity)
     if op_type == 1:
         return strike_price * phi(-d2) - stock_price * phi(-d1)* math.exp(-rate * maturity)
     return stock_price * phi(d1) - strike_price * phi(d2) * math.exp(-rate * maturity)
 
-def delta_bsm(stock_price,strike_price,rate,volatility,maturity,op_type):
+def delta_bsm(stock_price,strike_price,rate,volatility,maturity,op_type,opt_nat = 0):
     d1 = (math.log(stock_price/strike_price) + (rate +volatility*volatility/2)*maturity)/ (volatility* math.sqrt(maturity))
     if op_type == 1:
         return phi(d1)-1

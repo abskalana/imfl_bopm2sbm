@@ -28,7 +28,8 @@ def parseCompute(request):
     step = int(request.GET.get('step', 50))
     maturity = float(request.GET.get('maturity', 1))
     op_type = int(request.GET.get('op_type', 0))
-    b= BopmData(stock_price, strick_price, rate, volatility,maturity, step, op_type = op_type)
+    op_nat = int(request.GET.get('op_nat', 0))
+    b= BopmData(stock_price, strick_price, rate, volatility,maturity, step, op_type = op_type,op_nat = op_nat)
     b.compute()
     return b
 

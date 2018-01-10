@@ -74,20 +74,45 @@ table {
 					Bopm2Bsm <small> Simulink the convergency of discret binomial pricing to Black scholes and merton model</small>
 				</h1>
 				<p>
-                    The purpose of this website is to study the convergency of binomial option pricing model toward Black scholes merton option pricing.
+                    The purpose of this website is to study the convergency of binomial option pricing model toward Black Scholes- Merton option pricing model.
                 </p>
 			</div>
 			<br><br><br>
 			<div class="row" style="margin: 1%">
 				<div class="col-md-2 border_1" style="height: 650px; padding: 1%;margin-right: 10px" >
 					<h4>
-						European options.
+						European option.
 					</h4>
                     <hr>
 					<form role="form" id="computeForm" method="get" action="/" >
 
 
                         <div class="row">
+
+                        {% if bopmdata.op_nat == 0 %}
+                            <div class="col-md-6">
+                             <input type="radio" name="op_nat" id="op_nat" value="0" checked>
+                             <label class="form-check-label" for="inlineRadio1">European</label>
+                            </div>
+                             <div class="col-md-6">
+                                 <input type="radio" name="op_nat" id="op_nat" value="1">
+                               <label class="form-check-label" for="inlineRadio1">American</label>
+                            </div>
+
+                        {% else %}
+                            <div class="col-md-6">
+                                <input type="radio" name="op_nat" id="op_nat" value="0" >
+                             <label class="form-check-label" for="inlineRadio1">European</label>
+                            </div>
+                             <div class="col-md-6">
+                                 <input type="radio" name="op_nat" id="op_nat" value="1" checked>
+                               <label class="form-check-label" for="inlineRadio1">American</label>
+                            </div>
+                        {% endif %}
+                        </div>
+
+                    <br>
+                     <div class="row">
 
                         {% if bopmdata.op_type == 0 %}
                             <div class="col-md-6">
@@ -109,7 +134,9 @@ table {
                                <label class="form-check-label" for="inlineRadio1">Put</label>
                             </div>
                         {% endif %}
-</div>
+                        </div>
+
+
                         <br>
 
                         <div class="form-group">
