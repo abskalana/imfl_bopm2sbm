@@ -16,7 +16,7 @@ class OptionStep():
             bsm = self.bsm
         )
 class BopmData():
-    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, op_type = 0):
+    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, op_type = 0,op_nat =0):
         self.stock_price = stock_price
         self.strike_price = strike_price
         self.rate = rate
@@ -27,7 +27,7 @@ class BopmData():
         self.u = 0
         self.d= 0
         self.diff = 0
-        self.opt_nat = 0
+        self.opt_nat = op_nat
         self.op_type = op_type
         self.optionsteps = []
 
