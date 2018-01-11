@@ -127,4 +127,4 @@ def get_step(maturity,step_value,step_unit):
     if step_unit.startswith('d'):
         step_in_years = step_value / 360.0
         result = max(maturity / step_in_years, 1)
-    return math.ceil(result) + 1
+    return math.ceil(result)
