@@ -16,17 +16,19 @@ class OptionStep():
             bsm = self.bsm
         )
 class BopmData():
-    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step, op_type = 0,op_nat =0):
+    def __init__(self, stock_price, strike_price,rate,volatility,maturity,step_value,step_unit, op_type = 0,op_nat =0, ):
         self.stock_price = stock_price
         self.strike_price = strike_price
         self.rate = rate
         self.volatility = volatility
         self.maturity = maturity
-        self.step = step
         self.delta = 0
         self.u = 0
         self.d= 0
         self.diff = 0
+        self.step_unit = step_unit
+        self.step_value = step_value
+        self.step = get_step(maturity,step_value,step_unit)
         self.op_nat = op_nat
         self.op_type = op_type
         self.optionsteps = []
@@ -59,6 +61,7 @@ class BopmData():
             self.optionsteps.append(OptionStep(i, bopm, self.bsm))
         self.bopm = bopm
         self.diff = math.fabs(bopm - self.bsm)
+
 
 def binomial(stock_price,strike_price,rate,volatility,maturity,step,op_type,op_nat = 0):
     dt = maturity / step
@@ -108,3 +111,20 @@ def down(volatility,maturity,step):
 
 def phi(x):
     return (1.0 + math.erf(x / math.sqrt(2.0))) / 2.0
+
+
+def get_step(maturity,step_value,step_unit):
+    result = max(maturity / step_value, 1)
+
+    if step_unit.startswith('w'):
+        step_in_years = (step_value*7)/ 360.0
+        result = max(maturity / step_in_years, 1)
+
+    if step_unit.startswith('m'):
+        step_in_years = step_value / 12.0
+        result = max(maturity / step_in_years, 1)
+
+    if step_unit.startswith('d'):
+        step_in_years = step_value / 360.0
+        result = max(maturity / step_in_years, 1)
+    return math.ceil(result) + 1
