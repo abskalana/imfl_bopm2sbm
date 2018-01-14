@@ -357,27 +357,31 @@
 
     google.charts.load('current', {packages: ['corechart', 'line']});
     google.charts.setOnLoadCallback(drawBasic);
+    var chart = null;
+    var options = null;
+    var data = null;
 
     function drawBasic() {
-
-        var data = new google.visualization.DataTable();
+        data = new google.visualization.DataTable();
         data.addColumn('number', 'Number of period');
         data.addColumn('number', 'Binomial');
         data.addColumn('number', 'Black Scholes');
+        chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        updateData({{bopmdata_json|safe}});
+        chart.draw(data, options);
+    }
 
-        data_bopm = {{bopmdata_json|safe}}
-
+    function updateData(data_bopm ){
         var numRows = data_bopm.optionsteps.length;
         for(var i = 0; i < numRows; i++) {
             var obj = data_bopm.optionsteps[i];
             var item = [obj.step, obj.bopm,obj.bsm];
-            data.addRow(item);
-
+            this.data.addRow(item);
         }
-        var options = {
+        options = {
             title:'Convergency of Bopm to Bsm',
             hAxis: {
-                title: 'Number of period',
+                title: 'Number of periods',
                 minValue: 0,
                 maxValue:numRows+1
             },
@@ -386,9 +390,6 @@
             }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-        chart.draw(data, options);
     }
 </script>
 </body>
