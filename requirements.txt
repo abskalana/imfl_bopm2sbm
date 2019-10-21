@@ -92,4 +92,4 @@ SQLAlchemy==1.1.13
 tenacity==4.4.0
 uritemplate==3.0.0
 urllib3==1.22
-Werkzeug==0.12.2
+Werkzeug==0.15.3
